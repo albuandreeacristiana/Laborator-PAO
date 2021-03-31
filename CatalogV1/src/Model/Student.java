@@ -71,11 +71,6 @@ public class Student extends DateIdentificare {
             }
 
         }
-       /* public int compare(Materie o1, Materie o2) {
-            if(o1.semestru != o2.semestru)
-                return o1.semestru - o2.semestru;
-            else
-                return o1.numeMaterie.compareTo(o2.numeMaterie);
-        }*/
+       
     };
 }
