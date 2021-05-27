@@ -1,6 +1,7 @@
 package Service;
 
 import Model.*;
+import Utils.Actions;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -16,11 +18,11 @@ import static Model.Student.compStudent;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class Services {
-    private List<Student> studenti = new ArrayList<Student>();
-    private List<Materie> materii = new ArrayList<Materie>();
-    private List<Profesor> profesori = new ArrayList<Profesor>();
-    private List<Grupa> grupe = new ArrayList<Grupa>();
-    private FileWriter logWriter;
+    public List<Student> studenti = new ArrayList<Student>();
+    public List<Materie> materii = new ArrayList<Materie>();
+    public List<Profesor> profesori = new ArrayList<Profesor>();
+    public List<Grupa> grupe = new ArrayList<Grupa>();
+    public FileWriter logWriter;
 
     public void addStudent(String nume, String initialaTatalui, String prenume,
                            int zi, int luna, int an,
@@ -30,6 +32,7 @@ public class Services {
         Data dn = new Data(zi,luna,an);
         List <Nota> note = new ArrayList<Nota>();
         Student s = new Student(n,dn,adresa,stareCivila,anStudiu,nrGrupa, note);
+        s.setId(Actions.adaugaStudent(s));
         studenti.add(s);
         int found = 0;
 
@@ -58,6 +61,7 @@ public class Services {
         Data dn = new Data(zi,luna,an);
         Data da = new Data(zia,lunaa,ana);
         Profesor p= new Profesor(n,dn,adresa,stareCivila,da, mat);
+        p.setId(Actions.adaugaProfesor(p));
         profesori.add(p);
         if (mat.size() > 0 && materii.size() > 0) {
             for (int j = 0; j < mat.size(); j++) {
@@ -73,7 +77,7 @@ public class Services {
             }
         }
     }
-    public int addNota(Nume student, int valoare, int zi, int luna, int an, String materie, Nume profesor){
+    public int addNota(Nume student, int valoare, int zi, int luna, int an, String materie, Nume profesor) throws SQLException {
         if(materii.size()==0){
             System.out.println("Materia nu exista.");
             return 0;
@@ -130,6 +134,7 @@ public class Services {
                 }
                 else{
                     Nota n = new Nota(valoare,new Data(zi, luna, an),m, prof );
+                    n.setId(Actions.adaugaNota(n,st.getId()));
                     st.getNote().add(n);
                 }
             }
@@ -251,6 +256,7 @@ public class Services {
             return 0;
         }
         Student aux = studenti.get(index);
+       // Actions.stergeStudent(aux.getId());
         int pos = -1;
         for(int i = 0; i < grupe.size(); i++){
             if(grupe.get(i).getNr() == aux.getGrupa()){

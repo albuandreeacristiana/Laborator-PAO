@@ -7,7 +7,11 @@ import java.util.List;
 
 public class Student extends DateIdentificare {
 
+    private int id = 0;
     private int an;
+
+
+
     private int grupa;
     private List<Nota> note;
 
@@ -20,7 +24,13 @@ public class Student extends DateIdentificare {
 
     public Student() {
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public int getAn() {
         return an;
     }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Profesor extends DateIdentificare{
+    private int id = 0;
     private Data dataAngajarii;
     List<Materie> materii;
 
@@ -14,6 +15,14 @@ public class Profesor extends DateIdentificare{
     }
 
     public Profesor() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Data getDataAngajarii() {

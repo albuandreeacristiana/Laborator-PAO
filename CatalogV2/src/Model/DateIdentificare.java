@@ -2,6 +2,7 @@ package Model;
 import Model.Nume;
 
 public class DateIdentificare {
+    private int id = 0;
     protected Nume nume;
     protected Data dataNasterii;
     protected String adresa;

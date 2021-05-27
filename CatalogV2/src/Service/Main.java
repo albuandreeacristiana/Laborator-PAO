@@ -1,15 +1,41 @@
 package Service;
 
 import Model.*;
+import Utils.Actions;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
+//        Nume n = new Nume("alllllllbu","sa","andreea");
+//        Data date = new Data(20,11,1999);
+//        DateIdentificare d = new DateIdentificare(n,date,"adresaaaaa","necasatorita");
+//        //Actions.adaugaDate(d);
+//        //Actions.stergeDate(1);
+//        Actions.actualizareDate(d, 2);
+//        List<Nota> note = new ArrayList<>();
+//        Student s = new Student(n,date,"adresa noua","blabla",3,222,note);
+//        Actions.adaugaStudent(s);
+//        System.out.println(Actions.citesteDate());
+
+
+        Services serv = new Services();
+        serv.profesori = Actions.citesteProfesori();
+        for(int i=0;i<serv.profesori.size();i++){
+            for(int j=0; j< serv.profesori.get(i).getMaterii().size();j++){
+                if(serv.searchMaterie(serv.profesori.get(i).getMaterii().get(j).getDenumire())==-1){
+                    serv.materii.add(serv.profesori.get(i).getMaterii().get(j));
+                }
+            }
+        }
+        serv.studenti = Actions.citesteStudenti(serv.materii, serv.profesori);
+
+
         System.out.println("Scrieti numarul corespunzator actiunii dorite!\n" +
                 "Meniu:\n" +
                 "1. Adauga student\n" +
@@ -36,7 +62,6 @@ public class Main {
                 System.out.println("Puteti introduce doar int-uri! \n");
             }
         }
-        Services serv = new Services();
         while(option != 11){
             if(option == 1){
                 Scanner in = new Scanner(System.in);
@@ -62,7 +87,7 @@ public class Main {
                 System.out.println("An studiu:");
                 int anStudiu = in.nextInt();
                 serv.addStudent(nume, initiale, prenume, zi, luna, an,adresa,stareCivila, anStudiu,nrGrupa);
-                System.out.println(serv);
+
                 serv.logAction("Adaugare student");
             }
             else

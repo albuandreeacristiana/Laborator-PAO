@@ -1,6 +1,7 @@
 package Model;
 
 public class Materie {
+    private int id = 0;
     private String denumire;
     private int nrSemestre;
     private int anStudiu;
@@ -12,6 +13,14 @@ public class Materie {
     }
 
     public Materie() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDenumire() {

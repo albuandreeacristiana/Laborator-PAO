@@ -1,6 +1,7 @@
 package Model;
 
 public class Nota {
+    private int id = 0;
     private int valoare;
     private Data data;
     private Materie materie;
@@ -11,6 +12,14 @@ public class Nota {
         this.data = data;
         this.materie = materie;
         this.profesor = profesor;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getValoare() {
